@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "description": "Default MCP server configurations for OpenCode",
+  "mcpServers": {
+    "searxng": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/opt/searxng-mcp/build/index.js"],
+      "env": {
+        "SEARXNG_URL": "http://100.110.14.68:8080/"
+      },
+      "description": "Self-hosted SearXNG search instance"
+    }
+  },
+  "plugins": {
+    "opencode-pty": {
+      "description": "Interactive PTY management - run background processes, send input, read output with regex filtering",
+      "npmPackage": "opencode-pty",
+      "repository": "https://github.com/shekohex/opencode-pty",
+      "stars": 388,
+      "setup": "Add 'opencode-pty' to plugin array in opencode.json"
+    },
+    "opencode-websearch-cited": {
+      "description": "LLM-grounded web search with inline citations",
+      "npmPackage": "opencode-websearch-cited",
+      "repository": "https://github.com/ghoulr/opencode-websearch-cited",
+      "stars": 176,
+      "setup": "Add to plugin array in opencode.json; LAST in plugin list; requires websearch_cited model config"
+    },
+    "opencode-agent-skills": {
+      "description": "Dynamic skills plugin - auto-discovers skills from project, user, and plugin directories",
+      "npmPackage": "opencode-agent-skills",
+      "repository": "https://github.com/joshuadavidthomas/opencode-agent-skills",
+      "stars": 183,
+      "setup": "Add to plugin array in opencode.json"
+    },
+    "opencode-supermemory": {
+      "description": "Persistent memory - agent remembers context across sessions",
+      "npmPackage": "opencode-supermemory",
+      "repository": "https://github.com/supermemoryai/opencode-supermemory",
+      "stars": 1100,
+      "setup": "Add to plugin array in opencode.json; requires SUPERMEMORY_API_KEY env var or config file",
+      "env": {
+        "SUPERMEMORY_API_KEY": "Get from https://app.supermemory.ai/?view=integrations"
+      }
+    },
+    "superpowers": {
+      "description": "Software development workflow with composable skills",
+      "repository": "https://github.com/obra/superpowers",
+      "setup": "Add to plugin array: 'superpowers@git+https://github.com/obra/superpowers.git'",
+      "installer": "https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md"
+    }
+  }
+}

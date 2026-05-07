@@ -1,0 +1,23 @@
+# OpenCode
+.opencode/
+*.log
+logs/
+
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets/credentials
+*.key
+credentials.json
