@@ -38,6 +38,59 @@ List dependencies explicitly with installation method:
 4. **Make changes** in small, reviewable increments
 5. **Verify** the changes work correctly
 
+### TODO.md Workflow
+
+Many repositories use `TODO.md` to track deferred work:
+
+1. **Create TODO.md** at repository root with deferred items
+2. **Plan Agent** creates GitHub issues from TODO items
+3. **Build Agent** works against the GitHub issues
+
+Example TODO.md structure:
+```markdown
+# TODO
+
+Backlog of work that has been identified but deliberately deferred.
+
+---
+
+- [ ] Item 1 - description
+- [ ] Item 2 - description
+```
+
+When an item is completed, delete it from TODO.md in the same commit.
+
+### GitHub Issues
+
+Create GitHub issues for work that needs tracking beyond the repository:
+
+1. **Use GitHub CLI** (`gh issue create`) to create issues
+2. **Reference issues** in commits: "Closes #123" or "Fixes #456"
+3. **Label appropriately**: bug, enhancement, documentation
+
+Example issue creation:
+```bash
+gh issue create --title "Feature: Add X support" --body "Description..." --label enhancement
+```
+
+### Plan Agent / Build Agent Workflow
+
+The OpenCode agent operates in two modes:
+
+1. **Plan Mode (read-only)**: Research, analyze, propose solutions
+   - Cannot make changes
+   - Creates GitHub issues for the work
+   - Provides detailed plans for review
+
+2. **Build Mode**: Implements changes
+   - Can make edits and run commands
+   - Works against issues created in plan mode
+   - Commits and pushes changes
+
+When prompted for a task:
+1. If in **plan mode** → research and create issues, don't implement
+2. If in **build mode** → implement the solution directly
+
 ## Commit Workflow
 
 Follow the Git workflow:
