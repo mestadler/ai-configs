@@ -199,3 +199,215 @@ This repository uses a **hardcopy** distribution model:
 - This repo remains source of truth for future projects
 
 For symlink-based repos (like dotfiles), changes take effect immediately on next shell source.
+
+## Installation & Setup
+
+Many projects have fresh-machine setup workflows:
+
+### Common Setup Patterns
+
+- Run setup scripts first: `./setup.sh`, `./bootstrap.sh`, `./install.sh`
+- Check for required tools: `which <tool>`, `command -v <tool>`
+- Install dependencies: `npm install`, `pip install -r requirements.txt`
+- Verify installation: `<tool> --version`
+
+### Package Managers
+
+Each language has preferred package managers:
+
+- **Node.js**: npm, bun (prefer bun for speed)
+- **Python**: pip, uv (prefer uv for speed), poetry
+- **Go**: go get, go mod tidy
+- **Rust**: cargo
+- **Shell**: apt, pacman, dnf
+
+### Fresh Machine Installation
+
+Typical fresh-machine workflow:
+```bash
+# 1. Install system packages
+sudo apt install -y git gh curl wget
+
+# 2. Install language runtimes
+curl -fsSL https://bun.sh/install | bash
+
+# 3. Install dependencies
+npm install
+pip install -r requirements.txt
+
+# 4. Verify setup
+<tool> --version
+./scripts/setup-password-store.sh
+```
+
+### LSP Servers
+
+For editor support, install language servers:
+
+- **Python**: `npm install -g pyright`
+- **TypeScript**: `npm install -g typescript-language-server`
+- **Go**: `go install golang.org/x/tools/gopls@latest`
+- **Bash**: `npm install -g bash-language-server`
+
+## Documentation Guidelines
+
+### README vs AGENTS.md
+
+- **README.md**: User-facing documentation, setup instructions, usage examples
+- **AGENTS.md**: Agent instructions, workflow guidance, build commands
+- **CLAUDE.md**: Claude Code specific guidance (for Claude Code compatibility)
+
+Keep documentation in sync with changes. Update docs when:
+- New features are added
+- Dependencies change
+- Workflows are modified
+- Configuration options are added
+
+### Project Notes
+
+For project-specific notes that don't fit in main docs:
+- `PROJECT.md` - project-specific context
+- `NOTES.md` -临时 notes
+- `TODO.md` - deferred work
+
+## CI/CD & GitHub Actions
+
+Many projects use GitHub Actions for automation:
+
+### Common Workflows
+
+```yaml
+# .github/workflows/test.yml
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm test
+      - run: npm run lint
+```
+
+### Verify CI Locally
+
+Before pushing, run equivalent of CI locally:
+```bash
+npm test        # Run tests
+npm run lint   # Run linter
+npm run build  # Verify build
+```
+
+## Additional Debug Patterns
+
+Many tools support debug output:
+
+- **Environment variable**: `DEBUG=1 <command>`
+- **Flag**: `<command> --debug` or `<command> -d`
+- **Verbose**: `<command> --verbose` or `<command> -v`
+- **Trace**: `<command> --trace`
+
+Example:
+```bash
+DEBUG=1 npm run dev    # Enable debug output
+curl -vvv <url>      # Verbose HTTP debugging
+kubectl -v=6 apply   # Kubernetes verbose output
+```
+
+### Log Levels
+
+Common log levels (low to high):
+- DEBUG - Detailed diagnostic info
+- INFO - General informational messages
+- WARN - Warning messages
+- ERROR - Error messages
+- SUCCESS - Success messages (custom)
+
+### Verbose Logging
+
+For network/API debugging:
+```bash
+curl -vvv http://example.com    # Very verbose HTTP
+wget --debug <url>          # Debug wget
+python -v -v <script.py>      # Verbose Python
+```
+
+## Quick Reference
+
+Many repos have quick reference sections with common commands:
+
+### Standard Commands Pattern
+
+```bash
+# Build
+make build
+
+# Run
+make run
+
+# Test
+make test
+
+# Lint/check
+make lint
+make check
+
+# Full quality gate
+make check   # runs lint + test
+```
+
+### Makefile Patterns
+
+Standard make targets:
+- `build` - Build the binary/package
+- `run` - Run locally
+- `test` - Run tests
+- `lint` - Run linter
+- `check` - Quality gate (lint + test)
+- `clean` - Clean build artifacts
+
+## Definition of Done
+
+Each project should define what "done" means:
+
+- Code builds successfully
+- Tests pass
+- Lint/typecheck passes
+- Documentation updated
+- Changes are committed
+
+For deployment projects, add:
+- Deployed to target environment
+- Validation checks pass
+- Smoke tests pass
+- Run evidence written
+
+## Safety Guardrails
+
+Important safety practices:
+
+- **Never commit secrets** or credentials
+- **Never run destructive operations** unless explicitly requested
+- **Fail fast** on validation errors
+- **Verify** before executing destructive commands
+- **Review** changes before pushing to production
+
+## Environment Variables
+
+Common env var patterns:
+- `DEBUG=1` - Enable debug output
+- `VERBOSE=1` - Enable verbose logging
+- `DRY_RUN=1` - Preview without executing
+- `ENV=development` - Set environment
+
+Check for required env vars:
+```bash
+# Check if var is set
+if [ -z "${VAR_NAME}" ]; then
+    echo "VAR_NAME is not set"
+    exit 1
+fi
