@@ -154,3 +154,48 @@ Distinguish between **source files** (editable) and **generated artifacts** (fro
 - If stuck, ask clarifying questions rather than guessing
 - Provide relevant context when requesting user input
 - Suggest options when the path forward is unclear
+
+## Troubleshooting
+
+When encountering issues:
+
+1. **Check logs first**: Look for error messages in output
+2. **Search existing issues**: Check TODO.md, README, or documentation
+3. **Verify environment**: Check dependencies, environment variables
+4. **Isolate the problem**: Test individual components separately
+
+### Common Debug Patterns
+
+- **Shell scripts**: Run with `bash -n <file>` to check syntax before executing
+- **Container issues**: Check logs with `nerdctl logs` or `docker compose logs`
+- **Kubernetes**: Use `kubectl describe` for detailed resource info
+- **API errors**: Use verbose curl (`curl -vvv`) to see request/response
+
+## Container & Kubernetes
+
+Many projects use containerized workflows:
+
+### nerdctl (containerd)
+- `nerdctl ps` - List containers
+- `nerdctl logs -f <container>` - Follow logs
+- `nerdctl exec -it <container> sh` - Shell into container
+- `nerdctl compose up -d` - Start compose services
+- `nerdctl compose logs -f` - Follow compose logs
+
+### kubectl
+- `kubectl get pods/svc/deployments` - List resources
+- `kubectl logs -f <pod>` - Follow pod logs
+- `kubectl describe <resource>` - Detailed info
+- `kubectl exec -it <pod> -- sh` - Shell into pod
+- `kubectl apply -f <file>` - Apply YAML
+- `kubectl delete -f <file>` - Delete resources
+
+## Distribution Model
+
+This repository uses a **hardcopy** distribution model:
+
+- Copy configs to workspaces (not symlinks)
+- Workspaces can diverge from defaults as needed
+- This repo remains source of truth for future projects
+
+For symlink-based repos (like dotfiles), changes take effect immediately on next shell source.
