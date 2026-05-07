@@ -12,6 +12,26 @@
       },
       "description": "Self-hosted SearXNG search instance",
       "enabled": true
+    },
+    "exa": {
+      "description": "Web search - built-in to Oh My OpenCode",
+      "npmPackage": "@exa/mcp",
+      "repository": "https://github.com/exaai/mcp",
+      "notes": "Similar to opencode-websearch-cited but built into oh-my-opencode",
+      "enabled": false
+    },
+    "context7": {
+      "description": "Fetches up-to-date official documentation for libraries",
+      "npmPackage": "@context7/mcp-server",
+      "repository": "https://github.com/context7/mcp-server",
+      "notes": "Built-in MCP in oh-my-opencode",
+      "enabled": false
+    },
+    "grep-app": {
+      "description": "Ultra-fast code search across GitHub repos",
+      "url": "https://github.com/Burter/mcp-grep",
+      "notes": "Built-in MCP in oh-my-opencode",
+      "enabled": false
     }
   },
   
@@ -100,8 +120,7 @@
       ],
       "enabled": false,
       "type": "local"
-    }
-  },
+    },
     "superpowers": {
       "description": "Software development workflow with composable skills",
       "repository": "https://github.com/obra/superpowers",
@@ -113,6 +132,57 @@
       },
       "enabled": true
     }
+  },
+  
+  "ohMyOpenCodeComparison": {
+    "description": "Comparison with oh-my-opencode (omo) plugin for reference",
+    "omoRepo": "https://github.com/code-yeongyu/oh-my-openagent",
+    "omoStars": 56400,
+    "omoFeatures": {
+      "builtinMCPs": [
+        {
+          "name": "exa",
+          "description": "Web search"
+        },
+        {
+          "name": "context7",
+          "description": "Official documentation lookup"
+        },
+        {
+          "name": "grep_app",
+          "description": "GitHub code search"
+        }
+      ],
+      "builtinSkills": [
+        "playwright",
+        "playwright-cli", 
+        "agent-browser",
+        "dev-browser",
+        "git-master",
+        "frontend-ui-ux"
+      ],
+      "agents": [
+        "Sisyphus (main orchestrator)",
+        "Hephaestus (deep worker)",
+        "Prometheus (strategic planner)",
+        "Oracle (architecture/debugging)",
+        "Librarian (docs/code search)",
+        "Explore (fast grep)"
+      ],
+      "keyFeatures": [
+        "Hash-anchored edits (LINE#ID)",
+        "Background agents (parallel)",
+        "Skill-embedded MCPs",
+        "IntentGate (intent classification)",
+        "Ralph Loop (self-referential)",
+        "Todo Enforcer",
+        "Comment Checker"
+      ]
+    },
+    "similarPlugins": [
+      "superpowers (similar skills concept)",
+      "opencode-agent-skills (similar skill discovery)"
+    ]
   },
   
   "optionalPlugins": {
@@ -127,6 +197,23 @@
         "step2": "Add to plugin array LAST: \"opencode-websearch-cited@1.2.0\"",
         "step3": "Configure websearch_cited model in provider options"
       },
+      "enabled": false
+    },
+    "oh-my-openagent": {
+      "description": "Full agent harness - similar to oh-my-opencode (omo). Has built-in skills, MCPs, and agent orchestration",
+      "npmPackage": "oh-my-opencode",
+      "repository": "https://github.com/code-yeongyu/oh-my-openagent",
+      "stars": 56400,
+      "setup": {
+        "NOTE": "Oh My OpenCode is a full harness plugin. Use instead of or alongside other plugins.",
+        "step1": "Install: bunx oh-my-opencode@latest install",
+        "step2": "Add to plugin array: \"oh-my-openagent\" or \"oh-my-opencode\"",
+        "step3": "Run: opencode ultrawork or ulw"
+      },
+      "alternatives": [
+        "Use this plugin alone",
+        "Use alongside other plugins (compatibility mode exists)"
+      ],
       "enabled": false
     }
   },
