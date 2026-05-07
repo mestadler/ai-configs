@@ -1,6 +1,7 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "description": "Default MCP server configurations for OpenCode",
+  "description": "Default MCP server and plugin configurations for OpenCode",
+  
   "mcpServers": {
     "searxng": {
       "type": "stdio",
@@ -9,46 +10,93 @@
       "env": {
         "SEARXNG_URL": "http://100.110.14.68:8080/"
       },
-      "description": "Self-hosted SearXNG search instance"
+      "description": "Self-hosted SearXNG search instance",
+      "enabled": true
     }
   },
+  
   "plugins": {
+    "NOTE": "Add plugins to opencode.json plugin array. Order matters - opencode-websearch-cited should be LAST."
+  },
+  
+  "defaultPlugins": {
     "opencode-pty": {
       "description": "Interactive PTY management - run background processes, send input, read output with regex filtering",
       "npmPackage": "opencode-pty",
       "repository": "https://github.com/shekohex/opencode-pty",
       "stars": 388,
-      "setup": "Add 'opencode-pty' to plugin array in opencode.json"
-    },
-    "opencode-websearch-cited": {
-      "description": "LLM-grounded web search with inline citations",
-      "npmPackage": "opencode-websearch-cited",
-      "repository": "https://github.com/ghoulr/opencode-websearch-cited",
-      "stars": 176,
-      "setup": "Add to plugin array in opencode.json; LAST in plugin list; requires websearch_cited model config"
+      "setup": {
+        "step1": "Install: bunx opencode-pty@latest install",
+        "step2": "Add to plugin array in opencode.json: \"opencode-pty\"",
+        "config": {
+          "PTY_MAX_BUFFER_LINES": 50000
+        }
+      },
+      "enabled": true
     },
     "opencode-agent-skills": {
       "description": "Dynamic skills plugin - auto-discovers skills from project, user, and plugin directories",
       "npmPackage": "opencode-agent-skills",
       "repository": "https://github.com/joshuadavidthomas/opencode-agent-skills",
       "stars": 183,
-      "setup": "Add to plugin array in opencode.json"
+      "setup": {
+        "step1": "Install: bunx opencode-agent-skills@latest install",
+        "step2": "Add to plugin array in opencode.json: \"opencode-agent-skills\""
+      },
+      "enabled": true
     },
     "opencode-supermemory": {
       "description": "Persistent memory - agent remembers context across sessions",
       "npmPackage": "opencode-supermemory",
       "repository": "https://github.com/supermemoryai/opencode-supermemory",
       "stars": 1100,
-      "setup": "Add to plugin array in opencode.json; requires SUPERMEMORY_API_KEY env var or config file",
+      "setup": {
+        "step1": "Install: bunx opencode-supermemory@latest install",
+        "step2": "Add to plugin array in opencode.json: \"opencode-supermemory\"",
+        "step3": "Get API key from https://app.supermemory.ai/?view=integrations",
+        "step4": "Set env: export SUPERMEMORY_API_KEY=\"sm_...\""
+      },
       "env": {
         "SUPERMEMORY_API_KEY": "Get from https://app.supermemory.ai/?view=integrations"
-      }
+      },
+      "enabled": true
     },
     "superpowers": {
       "description": "Software development workflow with composable skills",
       "repository": "https://github.com/obra/superpowers",
-      "setup": "Add to plugin array: 'superpowers@git+https://github.com/obra/superpowers.git'",
-      "installer": "https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.opencode/INSTALL.md"
+      "stars": "N/A",
+      "setup": {
+        "step1": "Add to plugin array in opencode.json: \"superpowers@git+https://github.com/obra/superpowers.git\"",
+        "step2": "Restart OpenCode to load plugin",
+        "step3": "Verify: ask 'Tell me about your superpowers'"
+      },
+      "enabled": true
     }
+  },
+  
+  "optionalPlugins": {
+    "opencode-websearch-cited": {
+      "description": "LLM-grounded web search with inline citations",
+      "npmPackage": "opencode-websearch-cited",
+      "repository": "https://github.com/ghoulr/opencode-websearch-cited",
+      "stars": 176,
+      "setup": {
+        "NOTE": "Add LAST in plugin list to avoid impacting other plugins' auth process",
+        "step1": "Install: bunx opencode-websearch-cited@latest install",
+        "step2": "Add to plugin array LAST: \"opencode-websearch-cited@1.2.0\"",
+        "step3": "Configure websearch_cited model in provider options"
+      },
+      "enabled": false
+    }
+  },
+  
+  "opencodeJsonTemplate": {
+    "$schema": "https://opencode.ai/config.json",
+    "plugin": [
+      "opencode-pty",
+      "opencode-agent-skills",
+      "opencode-supermemory",
+      "superpowers"
+    ]
   }
 }
