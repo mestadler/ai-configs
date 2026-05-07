@@ -25,13 +25,13 @@
       "npmPackage": "@context7/mcp-server",
       "repository": "https://github.com/context7/mcp-server",
       "notes": "Built-in MCP in oh-my-opencode",
-      "enabled": false
+      "enabled": true
     },
     "grep-app": {
       "description": "Ultra-fast code search across GitHub repos",
       "url": "https://github.com/Burter/mcp-grep",
       "notes": "Built-in MCP in oh-my-opencode",
-      "enabled": false
+      "enabled": true
     }
   },
   
