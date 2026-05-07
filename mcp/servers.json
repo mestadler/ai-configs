@@ -46,7 +46,7 @@
       "enabled": true
     },
     "opencode-supermemory": {
-      "description": "Persistent memory - agent remembers context across sessions",
+      "description": "Persistent memory - agent remembers context across sessions (cloud-based)",
       "npmPackage": "opencode-supermemory",
       "repository": "https://github.com/supermemoryai/opencode-supermemory",
       "stars": 1100,
@@ -59,8 +59,49 @@
       "env": {
         "SUPERMEMORY_API_KEY": "Get from https://app.supermemory.ai/?view=integrations"
       },
-      "enabled": true
+      "enabled": true,
+      "type": "cloud"
     },
+    "superlocalmemory": {
+      "description": "100% local AI memory - no cloud, no API keys. Alternative to Supermemory",
+      "npmPackage": "superlocalmemory",
+      "repository": "https://github.com/qualixar/superlocalmemory",
+      "stars": "new",
+      "setup": {
+        "step1": "Install: npm install -g superlocalmemory",
+        "step2": "Run setup: slm setup",
+        "step3": "Choose mode: A (local-only), B (local Ollama), or C (cloud LLM)",
+        "NOTE": "Mode A: 100% local, no cloud calls, 74.8% on LoCoMo"
+      },
+      "alternatives": {
+        "modeA": "Local Guardian - zero cloud, EU AI Act compliant",
+        "modeB": "Smart Local - uses local Ollama",
+        "modeC": "Full Power - uses cloud LLM for max accuracy"
+      },
+      "enabled": true,
+      "type": "local"
+    },
+    "openmemory": {
+      "description": "Local persistent memory store - self-hosted, SQLite/Postgres",
+      "npmPackage": "openmemory",
+      "repository": "https://github.com/CaviraOSS/OpenMemory",
+      "stars": 4037,
+      "setup": {
+        "step1": "Python: pip install openmemory",
+        "step2": "Or Node: npm install openmemory",
+        "step3": "Configure: Uses local SQLite by default"
+      },
+      "features": [
+        "Multi-sector memory (episodic, semantic, procedural, emotional, reflective)",
+        "Temporal reasoning",
+        "Decay & reinforcement",
+        "Waypoint graph (associative links)",
+        "Explainable traces"
+      ],
+      "enabled": false,
+      "type": "local"
+    }
+  },
     "superpowers": {
       "description": "Software development workflow with composable skills",
       "repository": "https://github.com/obra/superpowers",
@@ -95,8 +136,56 @@
     "plugin": [
       "opencode-pty",
       "opencode-agent-skills",
-      "opencode-supermemory",
+      "superlocalmemory",
       "superpowers"
     ]
+  },
+  
+  "memoryComparison": {
+    "description": "Compare memory options for your use case",
+    
+    "cloud_based": {
+      "option": "supermemory (opencode-supermemory)",
+      "pros": [
+        "Full feature set",
+        "Easy setup - just add API key",
+        "Hosted and managed"
+      ],
+      "cons": [
+        "Requires API key",
+        "Data goes to cloud",
+        "Ongoing cost potential"
+      ],
+      "bestFor": "Quick start, don't mind cloud storage"
+    },
+    
+    "local_only": {
+      "option": "superlocalmemory Mode A",
+      "pros": [
+        "100% local - no data leaves machine",
+        "No API key needed",
+        "Free forever",
+        "EU AI Act compliant"
+      ],
+      "cons": [
+        "More setup required",
+        "Limited to local LLM if needed"
+      ],
+      "bestFor": "Privacy-first, air-gapped systems, enterprise"
+    },
+    
+    "hybrid": {
+      "option": "superlocalmemory Mode B/C",
+      "pros": [
+        "Uses local Ollama for better answers",
+        "Data stays local (Mode B)",
+        "Flexible"
+      ],
+      "cons": [
+        "Requires Ollama setup for Mode B",
+        "Cloud LLM for Mode C"
+      ],
+      "bestFor": "Want local but need LLM assistance"
+    }
   }
 }
